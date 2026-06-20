@@ -1,6 +1,6 @@
 # Marketplace API Backend 🚀
 
-This is the standalone backend API engine for our marketplace application, built using Python and Django REST Framework (DRF). It handles user accounts, handles shopping cart updates, and registers order invoices to serve clean data to a decoupled frontend React application.
+This is the standalone backend API engine for our marketplace application, built using Python and Django REST Framework (DRF). It handles user accounts, handles shopping cart updates, and registers order to serve clean data to a decoupled frontend application.
 
 ---
 
