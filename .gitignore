@@ -1,0 +1,29 @@
+# Python compilation cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# Local virtual environment installations
+venv/
+vEnv/
+env/
+.venv/
+
+# Sensitive data and private keys
+.env
+.env.local
+
+# Databases 
+db.sqlite3
+db.sqlite3-journal
+
+# Media upload assets
+/media/
+/static/
+
+# Editor and operating system logs
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
