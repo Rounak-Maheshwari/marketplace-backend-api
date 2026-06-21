@@ -6,6 +6,7 @@ from .serializers import ProductSerializer, CategorySerializer, CartSerializer, 
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import RetrieveModelMixin, ListModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.db.models import Q
 
 # Create your views here.
 class CategoryListView(GenericAPIView, ListModelMixin):
@@ -16,10 +17,23 @@ class CategoryListView(GenericAPIView, ListModelMixin):
         return self.list(request, *args, **kwargs)
 
 
-class ProductsListView(APIView):
+class ProductsListandSearchView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
         products = Product.objects.all()
+
+        category_params = request.query_params.get('category')
+        search = request.query_params.get('search')
+
+        if search:
+            products = products.filter(
+                Q(description__icontains=search) | Q(title__icontains = search) |
+                Q(category__name__icontains = search)
+            )
+        
+        if category_params:
+            products = products.filter(category__name__iexact=category_params)
+
         serializer = ProductSerializer(products, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -269,3 +283,4 @@ class OrderListView(GenericAPIView, ListModelMixin):
     
     def get(self, request, *args, **kargs):
         return self.list(request, *args, **kargs)
+
